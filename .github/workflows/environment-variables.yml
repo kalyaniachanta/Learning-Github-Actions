@@ -10,7 +10,7 @@ jobs:
       - name: Print Statement
         run: Write-Output "Hello from Workflow"
       - name: Print Environment Variables
-        run: env | sort
+        run: "Get-ChildItem Env: | Sort-Object Name"
   ubuntu:
     name: Ubuntu environment
     runs-on: ubuntu-latest 
@@ -20,4 +20,4 @@ jobs:
       - name: Print Statement
         run: echo Hello from Workflow
       - name: Print Environment Variables
-        run: "Get-ChildItem Env: | Sort-Object Name"
+        run: env | sort
