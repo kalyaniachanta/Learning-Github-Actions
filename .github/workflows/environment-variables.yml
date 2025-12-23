@@ -1,0 +1,23 @@
+name: environment-variables
+on: push
+jobs: 
+  windows:
+    name: Windows environment
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Print Statement
+        run: Write-Output "Hello from Workflow"
+      - name: Print Environment Variables
+        run: env | sort
+  ubuntu:
+    name: Ubuntu environment
+    runs-on: ubuntu-latest 
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Print Statement
+        run: echo Hello from Workflow
+      - name: Print Environment Variables
+        run: "Get-ChildItem Env: | Sort-Object Name"
