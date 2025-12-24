@@ -1,0 +1,63 @@
+name: go-multijob-dependentjob
+on:
+  push:
+    branches:
+      - "work/go"
+jobs:
+  ubuntu:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Go
+        uses: actions/setup-go@v5.5
+        with:
+            go-version: "1.20"
+      - name: Build Go Binary
+        run: go build -o main main.go
+      - name: Run binary
+        run: ./main
+  windows:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Go
+        uses: actions/setup-go@v5.5.0
+        with:
+            go-version: "1.20"
+      - name: Build Go Binary
+        run: go build -o main.exe main.go
+      - name: Run binary
+        run: .\main.exe
+  macOS:
+    runs-on: macos-latest
+    steps:
+        - name: Checkout
+          uses: actions/checkout@v4
+        - name: Setup Go
+          uses: actions/setup-go@v5.5.0
+          with:
+            go-version: "1.20"
+        - name: Build Go Binary
+          run: go build -o main main.go
+        - name: Run binary
+          run: ./main
+  cross-compile:
+    runs-on: ubuntu-latest
+    needs: [ubuntu,windows,macOS]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Go
+        uses: actions/setup-go@v5.5
+        with:
+            go-version: "1.20"
+      - name: Cross-compile for all platforms
+        run: | 
+          echo "Cross Compiling for all Platforms"
+          GOOS=linux GOARCH=amd64 go build -o main-linux main.go
+          GOOS=windows GOARCH=amd64 go build -o main-windows.exe main.go
+          GOOS=darwin GOARCH=amd64 go build -o main-macos-intel main.go
+      - name: List binaries
+        run: ls -l
