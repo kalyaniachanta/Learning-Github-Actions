@@ -12,7 +12,9 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v6.1.0
       - name: Print statement in Python
-        run: print("Hello Python")
+        run: |
+          echo "Hello Python"
+          pyhton -version
   
           
           
