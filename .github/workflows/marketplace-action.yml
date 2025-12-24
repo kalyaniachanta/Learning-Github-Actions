@@ -1,0 +1,16 @@
+name: marketplace-action
+on:
+  push:
+    branches: 
+      - 'work/actions-practice'
+jobs:
+  marketplace:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: QCVE - Code Scanning Sample
+        uses: maulanardy/codeql-sample-action@v1.2.0
+          
+        
+      
