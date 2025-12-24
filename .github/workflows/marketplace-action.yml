@@ -16,7 +16,7 @@ jobs:
       - name: Print statement in Python
         run: |
           echo "Hello Python"
-          pyhton --version
+          pyhton3 --version
   
           
           
